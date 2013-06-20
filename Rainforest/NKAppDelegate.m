@@ -7,12 +7,23 @@
 //
 
 #import "NKAppDelegate.h"
+#import "NKVideoSelectViewController.h"
 
 @implementation NKAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    NKVideoSelectViewController *viewController = [NKVideoSelectViewController selectionViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = navController;
+    [self.window makeKeyAndVisible];
+    
+    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
+        self.window.tintColor = [UIColor orangeColor];
+    }
+    
     return YES;
 }
 							
