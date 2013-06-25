@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    self.collectionView.allowsMultipleSelection = YES;
+    self.collectionView.allowsMultipleSelection = YES;
     
     UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Generate"
                                                                        style:UIBarButtonItemStyleBordered
@@ -85,8 +85,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSURL *url = self.selectedAssetURLs[indexPath.row];
-//    [self.selectedAssetURLs removeObject:url];
+    NSURL *url = self.selectedAssetURLs[indexPath.row];
+    [self.selectedAssetURLs removeObject:url];
 }
 
 #pragma mark - Video generation

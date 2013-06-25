@@ -71,6 +71,7 @@
         player.scalingMode = MPMovieScalingModeAspectFit;
         player.controlStyle = MPMovieControlStyleNone;
         player.allowsAirPlay = NO;
+        player.repeatMode = MPMovieRepeatModeOne;
         [player prepareToPlay];
         [player.view setFrame:self.bounds];
         [self.contentView addSubview:player.view];
