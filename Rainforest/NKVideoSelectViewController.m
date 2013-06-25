@@ -29,7 +29,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.collectionView.allowsMultipleSelection = YES;
+//    self.collectionView.allowsMultipleSelection = YES;
     
     UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Generate"
                                                                        style:UIBarButtonItemStyleBordered
@@ -73,6 +73,7 @@
     
     NKVideoThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.contentURL = self.assetURLs[indexPath.row];
+    cell.presentingViewController = self;
     return cell;
 }
 
@@ -84,8 +85,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSURL *url = self.selectedAssetURLs[indexPath.row];
-    [self.selectedAssetURLs removeObject:url];
+//    NSURL *url = self.selectedAssetURLs[indexPath.row];
+//    [self.selectedAssetURLs removeObject:url];
 }
 
 #pragma mark - Video generation

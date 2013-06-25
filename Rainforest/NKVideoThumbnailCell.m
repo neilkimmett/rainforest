@@ -9,9 +9,13 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "NKVideoThumbnailCell.h"
 
+#define kThumbnailExpansionAmount 40
+
 @interface NKVideoThumbnailCell ()
 @property (nonatomic) UIImageView *imageView;
 @property (nonatomic) UIView *selectionView;
+@property (nonatomic) BOOL hasExpanded;
+@property (nonatomic) MPMoviePlayerController *playerController;
 @end
 
 @implementation NKVideoThumbnailCell
@@ -37,7 +41,7 @@
     
     self.imageView.frame = self.bounds;
     self.selectionView.frame = self.bounds;
-    
+    self.layer.zPosition = self.highlighted ? 100 : 1;
     self.selectionView.hidden = !self.selected;
 }
 
@@ -45,6 +49,34 @@
 {
     [super setSelected:selected];
     [self setNeedsLayout];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+
+    if (!highlighted && self.hasExpanded) {
+        [self.playerController stop];
+        [self.playerController.view removeFromSuperview];
+        self.playerController = nil;
+        
+        self.frame = CGRectInset(self.frame, kThumbnailExpansionAmount, kThumbnailExpansionAmount);
+        self.hasExpanded = NO;
+    }
+    else if (highlighted && !self.hasExpanded) {
+        self.frame = CGRectInset(self.frame, -kThumbnailExpansionAmount, -kThumbnailExpansionAmount);
+        self.hasExpanded = YES;
+
+        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:self.contentURL];
+        player.scalingMode = MPMovieScalingModeAspectFit;
+        player.controlStyle = MPMovieControlStyleNone;
+        player.allowsAirPlay = NO;
+        [player prepareToPlay];
+        [player.view setFrame:self.bounds];
+        [self.contentView addSubview:player.view];
+        [player play];
+        self.playerController = player;
+    }
 }
 
 

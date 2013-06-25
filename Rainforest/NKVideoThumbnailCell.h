@@ -12,5 +12,12 @@
 @interface NKVideoThumbnailCell : UICollectionViewCell
 
 @property (nonatomic) NSURL *contentURL;
+@property (nonatomic, weak) UIViewController *presentingViewController;
+
+@end
+
+@protocol NKVideoThumbnailCell <NSObject>
+
+//- (void)
 
 @end
