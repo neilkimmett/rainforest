@@ -151,8 +151,6 @@
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self removePreviewView];
-    
     Video *video = self.videos[indexPath.row];
     [self.selectedVideosArray addObject:video];
     self.selectedVideosByRow[@(indexPath.row)] = video;
@@ -162,19 +160,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self removePreviewView];
-    
     Video *video = self.selectedVideosByRow[@(indexPath.row)];
     [self.selectedVideosArray removeObject:video];
     [self.selectedVideosByRow removeObjectForKey:@(indexPath.row)];
     
     [self enableOrDisableNextButton];
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self removePreviewView];
 }
 
 #pragma mark - Gesture rec
@@ -187,7 +177,41 @@
     if ([self.playerController.contentURL isEqual:video.contentURL]) {
         return;
     }
-    [self removePreviewView];
+    
+    [self addBlurredPreviewBackground];
+
+    CGRect cellRect = [self.collectionView convertRect:cell.frame toView:self.view];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:video.image];
+    imageView.frame = cellRect;
+    [self.view addSubview:imageView];
+    
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:video.contentURL];
+    CGRect previewRect = [self previewRectForPressedCell:cell];
+    player.scalingMode = MPMovieScalingModeAspectFit;
+    player.controlStyle = MPMovieControlStyleNone;
+    player.allowsAirPlay = NO;
+    player.repeatMode = MPMovieRepeatModeOne;
+    [player prepareToPlay];
+    player.view.frame = previewRect;
+    [self.view addSubview:player.view];
+    self.playerController = player;
+
+    player.view.hidden = YES;
+    self.previewBackgroundOverlay.alpha = 0.0f;
+    [UIView animateWithDuration:0.2f animations:^{
+        imageView.frame = previewRect;
+        self.previewBackgroundOverlay.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        [imageView removeFromSuperview];
+        player.view.hidden = NO;
+        [player play];
+    }];
+}
+
+- (void)addBlurredPreviewBackground
+{
+    [self.previewBackgroundOverlay removeFromSuperview];
+    self.previewBackgroundOverlay = nil;
     
     UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:0.3];
     UIImage *blurImage = [[NKViewSnapshotter snapshotImageFromView:self.view] applyBlurWithRadius:5
@@ -205,17 +229,6 @@
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(removePreviewView)];
     [previewBackgroundView addGestureRecognizer:pan];
-    
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:video.contentURL];
-    player.scalingMode = MPMovieScalingModeAspectFit;
-    player.controlStyle = MPMovieControlStyleNone;
-    player.allowsAirPlay = NO;
-    player.repeatMode = MPMovieRepeatModeOne;
-    [player prepareToPlay];
-    player.view.frame = [self previewRectForPressedCell:cell];
-    [self.view addSubview:player.view];
-    [player play];
-    self.playerController = player;
 }
 
 - (CGRect)previewRectForPressedCell:(NKIndexedImageCell *)cell
@@ -256,8 +269,12 @@
     [self.playerController.view removeFromSuperview];
     self.playerController = nil;
     
-    [self.previewBackgroundOverlay removeFromSuperview];
-    self.previewBackgroundOverlay = nil;
+    [UIView animateWithDuration:0.2f animations:^{
+        self.previewBackgroundOverlay.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [self.previewBackgroundOverlay removeFromSuperview];
+        self.previewBackgroundOverlay = nil;
+    }];
 }
 
 #pragma mark - Buttons
