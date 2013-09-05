@@ -46,8 +46,10 @@
     self.view = containerView;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(100, 100);
+    layout.itemSize = CGSizeMake(106, 106);
     layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.minimumInteritemSpacing = 0.0f;
+    layout.minimumLineSpacing = 1.0f / [[UIScreen mainScreen] scale];
 
     UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:frame
                                                           collectionViewLayout:layout];
