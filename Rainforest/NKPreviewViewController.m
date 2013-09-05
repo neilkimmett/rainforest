@@ -9,9 +9,10 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 #import "NKPreviewViewController.h"
+#import "Video.h"
 
 @interface NKPreviewViewController ()
-@property (nonatomic, strong) NSMutableArray *assetURLs;
+@property (nonatomic, strong) NSMutableArray *videos;
 @property (nonatomic, strong) MPMoviePlayerController *playerController;
 @property (nonatomic, assign) NSUInteger currentPlayingIndex;
 @end
@@ -22,7 +23,7 @@
 {
     self = [super init];
     if (self) {
-        _assetURLs = [assetURLs mutableCopy];
+        _videos = [assetURLs mutableCopy];
         _currentPlayingIndex = 0;
     }
     return self;
@@ -39,7 +40,9 @@
     player.controlStyle = MPMovieControlStyleNone;
     player.allowsAirPlay = NO;
     player.repeatMode = MPMovieRepeatModeNone;
-    player.contentURL = _assetURLs[_currentPlayingIndex];
+    
+    Video *video = _videos[_currentPlayingIndex];
+    player.contentURL = video.contentURL;
     
     [player prepareToPlay];
     CGRect frame = CGRectInset(self.view.frame, 20, 0);
@@ -56,17 +59,20 @@
 
 - (void)enqueueNextVideo
 {
-    AVURLAsset *currentAsset = [[AVURLAsset alloc] initWithURL:_assetURLs[_currentPlayingIndex]
+    Video *video = _videos[_currentPlayingIndex];
+    AVURLAsset *currentAsset = [[AVURLAsset alloc] initWithURL:video.contentURL
                                                        options:nil];
     double delayInSeconds = CMTimeGetSeconds(currentAsset.duration);
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         _currentPlayingIndex++;
-        if (_currentPlayingIndex < _assetURLs.count) {
-            _playerController.contentURL = _assetURLs[_currentPlayingIndex];
-            [_playerController play];
-            [self enqueueNextVideo];
+        if (_currentPlayingIndex >= _videos.count) {
+            _currentPlayingIndex = 0;
         }
+        Video *video = _videos[_currentPlayingIndex];
+        _playerController.contentURL = video.contentURL;
+        [_playerController play];
+        [self enqueueNextVideo];
     });
     
 }

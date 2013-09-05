@@ -9,17 +9,18 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "NKVideoSelectViewController.h"
-#import "NKVideoThumbnailCell.h"
+#import "NKIndexedImageCell.h"
 #import "NKAssetStitcher.h"
 #import "NKViewSnapshotter.h"
 #import "UIImage+ImageEffects.h"
 #import "NKPreviewViewController.h"
+#import "Video.h"
 
 @interface NKVideoSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) NSMutableArray *assetURLs;
-@property (nonatomic, strong) NSMutableDictionary *selectedAssetURLsByRow;
-@property (nonatomic, strong) NSMutableArray *selectedAssetURLsArray;
+@property (nonatomic, strong) NSArray *videos;
+@property (nonatomic, strong) NSMutableDictionary *selectedVideosByRow;
+@property (nonatomic, strong) NSMutableArray *selectedVideosArray;
 @property (nonatomic, strong) MPMoviePlayerController *playerController;
 @property (nonatomic, strong) UIView *previewBackgroundOverlay;
 @end
@@ -53,7 +54,7 @@
     collectionView.delegate = self;
     collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 //    collectionView.contentInset = [UIDevice isiOS7] && self.navigationController.navigationBar.translucent ? UIEdgeInsetsMake(heightAdjustment, 0, 0, 0) : UIEdgeInsetsZero;
-    [collectionView registerClass:[NKVideoThumbnailCell class] forCellWithReuseIdentifier:@"CellIdentifier"];
+    [collectionView registerClass:[NKIndexedImageCell class] forCellWithReuseIdentifier:@"CellIdentifier"];
     collectionView.dataSource = self;
     collectionView.allowsMultipleSelection = YES;
     collectionView.backgroundColor = [UIColor whiteColor];
@@ -61,13 +62,12 @@
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
     
-    [self loadAssets];
+    [self loadVideos];
 }
 
-- (void)loadAssets
+- (void)loadVideos
 {
-    self.assetURLs = [NSMutableArray array];
-
+    NSMutableArray *videos = [NSMutableArray array];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop2) {
@@ -76,11 +76,14 @@
                 NSNumber *duration = [asset valueForProperty:ALAssetPropertyDuration];
                 if ([duration floatValue] <= 7.0f) {
                     NSURL *url = [asset valueForProperty:ALAssetPropertyAssetURL];
-                    [self.assetURLs insertObject:url atIndex:0];
-                    [self.collectionView reloadData];
+                    
+                    Video *video = [Video videoWithContentURL:url];
+                    [videos insertObject:video atIndex:0];
                 }
             }
         }];
+        self.videos = [videos copy];
+        [self.collectionView reloadData];
     } failureBlock:^(NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -100,27 +103,39 @@
 }
 - (void)viewDidAppear:(BOOL)animated
 {
-    for (NSNumber *index in [self.selectedAssetURLsByRow allKeys]) {
+    for (NSNumber *index in [self.selectedVideosByRow allKeys]) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[index intValue] inSection:0];
         [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
     
-    self.selectedAssetURLsByRow = [NSMutableDictionary dictionary];
-    self.selectedAssetURLsArray = [NSMutableArray array];
+    self.selectedVideosByRow = [NSMutableDictionary dictionary];
+    self.selectedVideosArray = [NSMutableArray array];
 }
 
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.assetURLs.count;
+    return self.videos.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"CellIdentifier";
     
-    NKVideoThumbnailCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.contentURL = self.assetURLs[indexPath.row];
+    NKIndexedImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.index = indexPath.row;
+
+    Video *video = self.videos[indexPath.row];
+    if (video.image) {
+        cell.imageView.image = video.image;
+    }
+    else {
+        cell.imageView.image = nil;
+        [video generateImageWithCompletion:^(UIImage *image) {
+            cell.imageView.image = image;
+            [cell setNeedsDisplay];
+        }];
+    }
     
     if (cell.gestureRecognizers.count == 0) {
         UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellDidRecognizeLongPress:)];
@@ -134,17 +149,17 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
-    NSURL *url = self.assetURLs[indexPath.row];
-    [self.selectedAssetURLsArray addObject:url];
-    self.selectedAssetURLsByRow[@(indexPath.row)] = url;
+    Video *video = self.videos[indexPath.row];
+    [self.selectedVideosArray addObject:video];
+    self.selectedVideosByRow[@(indexPath.row)] = video;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
-    NSURL *url = self.selectedAssetURLsByRow[@(indexPath.row)];
-    [self.selectedAssetURLsArray removeObject:url];
-    [self.selectedAssetURLsByRow removeObjectForKey:@(indexPath.row)];
+    NSURL *url = self.selectedVideosByRow[@(indexPath.row)];
+    [self.selectedVideosArray removeObject:url];
+    [self.selectedVideosByRow removeObjectForKey:@(indexPath.row)];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -157,9 +172,10 @@
 - (void)cellDidRecognizeLongPress:(UILongPressGestureRecognizer *)gesture
 {
     
-    NKVideoThumbnailCell *cell = (NKVideoThumbnailCell *)gesture.view;
+    NKIndexedImageCell *cell = (NKIndexedImageCell *)gesture.view;
 
-    if ([self.playerController.contentURL isEqual:cell.contentURL]) {
+    Video *video = _videos[cell.index];
+    if ([self.playerController.contentURL isEqual:video.contentURL]) {
         return;
     }
     [self removePreviewView];
@@ -181,7 +197,7 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(removePreviewView)];
     [previewBackgroundView addGestureRecognizer:pan];
     
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:cell.contentURL];
+    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:video.contentURL];
     player.scalingMode = MPMovieScalingModeAspectFit;
     player.controlStyle = MPMovieControlStyleNone;
     player.allowsAirPlay = NO;
@@ -193,7 +209,7 @@
     self.playerController = player;
 }
 
-- (CGRect)previewRectForPressedCell:(NKVideoThumbnailCell *)cell
+- (CGRect)previewRectForPressedCell:(NKIndexedImageCell *)cell
 {
     CGRect cellRect = [self.collectionView convertRect:cell.frame toView:self.view];
 
@@ -238,7 +254,7 @@
 #pragma mark - Buttons
 - (void)didTapNextButton:(id)sender
 {
-    NKPreviewViewController *viewController = [[NKPreviewViewController alloc] initWithAssetURLs:[self.selectedAssetURLsArray copy]];
+    NKPreviewViewController *viewController = [[NKPreviewViewController alloc] initWithAssetURLs:[_selectedVideosArray copy]];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -250,8 +266,8 @@
     NSArray *documentsSearchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [documentsSearchPaths count] == 0 ? nil : [documentsSearchPaths objectAtIndex:0];
 
-    [self.selectedAssetURLsByRow enumerateKeysAndObjectsUsingBlock:^(NSNumber *idx, NSURL *url, BOOL *stop) {
-        AVURLAsset *urlAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
+    [_selectedVideosByRow enumerateKeysAndObjectsUsingBlock:^(NSNumber *idx, Video *video, BOOL *stop) {
+        AVURLAsset *urlAsset = [[AVURLAsset alloc] initWithURL:video.contentURL options:nil];
         [assetStitcher addAsset:urlAsset withTransform:nil withErrorHandler:^(NSError *error) {
             NSLog(@"%@", error);
         }];
