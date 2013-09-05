@@ -18,14 +18,13 @@
 		28914366176DCA8A00A7DC85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28914364176DCA8A00A7DC85 /* InfoPlist.strings */; };
 		28914368176DCA8A00A7DC85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 28914367176DCA8A00A7DC85 /* main.m */; };
 		2891436C176DCA8A00A7DC85 /* NKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2891436B176DCA8A00A7DC85 /* NKAppDelegate.m */; };
-		28914372176DCA8A00A7DC85 /* NKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28914371176DCA8A00A7DC85 /* NKViewController.m */; };
 		28914374176DCA8A00A7DC85 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28914373176DCA8A00A7DC85 /* Images.xcassets */; };
 		2891437B176DCA8A00A7DC85 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891437A176DCA8A00A7DC85 /* XCTest.framework */; };
 		2891437C176DCA8A00A7DC85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435B176DCA8A00A7DC85 /* Foundation.framework */; };
 		2891437D176DCA8A00A7DC85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435F176DCA8A00A7DC85 /* UIKit.framework */; };
 		28914385176DCA8A00A7DC85 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28914383176DCA8A00A7DC85 /* InfoPlist.strings */; };
 		28914387176DCA8A00A7DC85 /* RainforestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28914386176DCA8A00A7DC85 /* RainforestTests.m */; };
-		28914393176DD1AC00A7DC85 /* AVAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 28914392176DD14200A7DC85 /* AVAssetStitcher.m */; };
+		28914393176DD1AC00A7DC85 /* NKAssetStitcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 28914392176DD14200A7DC85 /* NKAssetStitcher.m */; };
 		28914395176DDEAF00A7DC85 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28914394176DDEAF00A7DC85 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,16 +56,14 @@
 		28914369176DCA8A00A7DC85 /* Rainforest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rainforest-Prefix.pch"; sourceTree = "<group>"; };
 		2891436A176DCA8A00A7DC85 /* NKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKAppDelegate.h; sourceTree = "<group>"; };
 		2891436B176DCA8A00A7DC85 /* NKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NKAppDelegate.m; sourceTree = "<group>"; };
-		28914370176DCA8A00A7DC85 /* NKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKViewController.h; sourceTree = "<group>"; };
-		28914371176DCA8A00A7DC85 /* NKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NKViewController.m; sourceTree = "<group>"; };
 		28914373176DCA8A00A7DC85 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		28914379176DCA8A00A7DC85 /* RainforestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RainforestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2891437A176DCA8A00A7DC85 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		28914382176DCA8A00A7DC85 /* RainforestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RainforestTests-Info.plist"; sourceTree = "<group>"; };
 		28914384176DCA8A00A7DC85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		28914386176DCA8A00A7DC85 /* RainforestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RainforestTests.m; sourceTree = "<group>"; };
-		28914391176DD14200A7DC85 /* AVAssetStitcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVAssetStitcher.h; sourceTree = "<group>"; };
-		28914392176DD14200A7DC85 /* AVAssetStitcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AVAssetStitcher.m; sourceTree = "<group>"; };
+		28914391176DD14200A7DC85 /* NKAssetStitcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKAssetStitcher.h; sourceTree = "<group>"; };
+		28914392176DD14200A7DC85 /* NKAssetStitcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NKAssetStitcher.m; sourceTree = "<group>"; };
 		28914394176DDEAF00A7DC85 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -138,8 +135,6 @@
 				28914390176DD13200A7DC85 /* 3rd party libraries */,
 				2891436A176DCA8A00A7DC85 /* NKAppDelegate.h */,
 				2891436B176DCA8A00A7DC85 /* NKAppDelegate.m */,
-				28914370176DCA8A00A7DC85 /* NKViewController.h */,
-				28914371176DCA8A00A7DC85 /* NKViewController.m */,
 				284594F91773829D005382AE /* NKVideoSelectViewController.h */,
 				284594FA1773829D005382AE /* NKVideoSelectViewController.m */,
 				284594FC177386A6005382AE /* NKVideoThumbnailCell.h */,
@@ -182,8 +177,8 @@
 		28914390176DD13200A7DC85 /* 3rd party libraries */ = {
 			isa = PBXGroup;
 			children = (
-				28914391176DD14200A7DC85 /* AVAssetStitcher.h */,
-				28914392176DD14200A7DC85 /* AVAssetStitcher.m */,
+				28914391176DD14200A7DC85 /* NKAssetStitcher.h */,
+				28914392176DD14200A7DC85 /* NKAssetStitcher.m */,
 			);
 			name = "3rd party libraries";
 			sourceTree = "<group>";
@@ -286,8 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				284594FB177382AE005382AE /* NKVideoSelectViewController.m in Sources */,
-				28914393176DD1AC00A7DC85 /* AVAssetStitcher.m in Sources */,
-				28914372176DCA8A00A7DC85 /* NKViewController.m in Sources */,
+				28914393176DD1AC00A7DC85 /* NKAssetStitcher.m in Sources */,
 				28914368176DCA8A00A7DC85 /* main.m in Sources */,
 				2891436C176DCA8A00A7DC85 /* NKAppDelegate.m in Sources */,
 				284594FE177386A6005382AE /* NKVideoThumbnailCell.m in Sources */,

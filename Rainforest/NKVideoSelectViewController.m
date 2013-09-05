@@ -10,7 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "NKVideoSelectViewController.h"
 #import "NKVideoThumbnailCell.h"
-#import "AVAssetStitcher.h"
+#import "NKAssetStitcher.h"
 
 @interface NKVideoSelectViewController ()
 @property (nonatomic) NSMutableArray *assetURLs;
@@ -91,12 +91,11 @@
 #pragma mark - Video generation
 - (void)generateVideo:(id)sender
 {
-    AVAssetStitcher *assetStitcher = [[AVAssetStitcher alloc] initWithOutputSize:CGSizeMake(500, 500)];
+    NKAssetStitcher *assetStitcher = [[NKAssetStitcher alloc] init];
 
     NSArray *documentsSearchPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [documentsSearchPaths count] == 0 ? nil : [documentsSearchPaths objectAtIndex:0];
-//    NSURL *videoURL = [NSURL URLWithString:[documentsDirectory stringByAppendingPathComponent:@"megavine.mp4"]];
-    
+
     [self.selectedAssetURLsByRow enumerateKeysAndObjectsUsingBlock:^(NSNumber *idx, NSURL *url, BOOL *stop) {
         AVURLAsset *urlAsset = [[AVURLAsset alloc] initWithURL:url options:nil];
         [assetStitcher addAsset:urlAsset withTransform:nil withErrorHandler:^(NSError *error) {
@@ -113,29 +112,20 @@
     
     [assetStitcher exportTo:exportUrl withPreset:AVAssetExportPresetPassthrough withCompletionHandler:^(NSError *error) {
         if (!error) {
-//            NSLog(@"%d", [[NSData dataWithContentsOfFile:exportPath] length]);
-//            NSLog(@"exist %d",[[NSFileManager defaultManager] fileExistsAtPath:exportPath]);
-//NSLog(@"%@", exportPath);
             ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             if ([library videoAtPathIsCompatibleWithSavedPhotosAlbum:exportUrl]) {
                 [library writeVideoAtPathToSavedPhotosAlbum:exportUrl completionBlock:^(NSURL *assetURL, NSError *error){
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (error) {
-                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"
-                                                                           delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                            [alert show];
-                        } else {
-                            MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:assetURL
-                                                                            ];
-                            [self presentMoviePlayerViewControllerAnimated:movieController];
-
-                        }
-                    });
+                    if (error) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"
+                                                                       delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                    } else {
+                        MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:assetURL];
+                        [self presentMoviePlayerViewControllerAnimated:movieController];
+                        
+                    }
                 }];
             }
-        }
-        else {
-            NSLog(@"TQWTWATATATAT %@", error);
         }
     }];
 }

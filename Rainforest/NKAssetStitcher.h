@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2013 Carson McDonald
+// Copyright (c) 2013 Neil Kimmett
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 // documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -19,9 +19,7 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface AVAssetStitcher : NSObject
-
-- (id)initWithOutputSize:(CGSize)outSize;
+@interface NKAssetStitcher : NSObject
 
 - (void)addAsset:(AVURLAsset *)asset withTransform:(CGAffineTransform (^)(AVAssetTrack *videoTrack))transformToApply withErrorHandler:(void (^)(NSError *error))errorHandler;
 - (void)exportTo:(NSURL *)outputFile withPreset:(NSString *)preset withCompletionHandler:(void (^)(NSError *error))completed;
