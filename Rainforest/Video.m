@@ -11,10 +11,22 @@
 
 @implementation Video
 
+- (id)initWithContentURL:(NSURL *)contentURL
+{
+    self = [super init];
+    if (self) {
+        _contentURL = contentURL;
+        
+        AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:contentURL
+                                                    options:nil];
+        _duration = CMTimeGetSeconds(asset.duration);
+    }
+    return self;
+}
+
 + (instancetype)videoWithContentURL:(NSURL *)contentURL
 {
-    Video *video = [[self alloc] init];
-    video.contentURL = contentURL;
+    Video *video = [[self alloc] initWithContentURL:contentURL];
     return video;
 }
 

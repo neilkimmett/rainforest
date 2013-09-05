@@ -110,6 +110,7 @@
     
     self.selectedVideosByRow = [NSMutableDictionary dictionary];
     self.selectedVideosArray = [NSMutableArray array];
+    [self enableOrDisableNextButton];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -149,17 +150,23 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
+    
     Video *video = self.videos[indexPath.row];
     [self.selectedVideosArray addObject:video];
     self.selectedVideosByRow[@(indexPath.row)] = video;
+    
+    [self enableOrDisableNextButton];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
-    NSURL *url = self.selectedVideosByRow[@(indexPath.row)];
-    [self.selectedVideosArray removeObject:url];
+    
+    Video *video = self.selectedVideosByRow[@(indexPath.row)];
+    [self.selectedVideosArray removeObject:video];
     [self.selectedVideosByRow removeObjectForKey:@(indexPath.row)];
+    
+    [self enableOrDisableNextButton];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -252,6 +259,11 @@
 }
 
 #pragma mark - Buttons
+- (void)enableOrDisableNextButton
+{
+    self.navigationItem.rightBarButtonItem.enabled = self.selectedVideosArray.count > 0;
+}
+
 - (void)didTapNextButton:(id)sender
 {
     NKPreviewViewController *viewController = [[NKPreviewViewController alloc] initWithAssetURLs:[_selectedVideosArray copy]];

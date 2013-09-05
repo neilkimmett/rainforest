@@ -45,10 +45,9 @@
     player.contentURL = video.contentURL;
     
     [player prepareToPlay];
-    CGRect frame = CGRectInset(self.view.frame, 20, 0);
-    frame.origin.y = 84;
-    frame.size.height = frame.size.width;
-    player.view.frame = frame;
+    CGFloat heightAdjustment = self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+
+    player.view.frame = CGRectMake(0, heightAdjustment, self.view.frame.size.width, self.view.frame.size.width);
     
     [self.view addSubview:player.view];
     [player play];
@@ -60,9 +59,8 @@
 - (void)enqueueNextVideo
 {
     Video *video = _videos[_currentPlayingIndex];
-    AVURLAsset *currentAsset = [[AVURLAsset alloc] initWithURL:video.contentURL
-                                                       options:nil];
-    double delayInSeconds = CMTimeGetSeconds(currentAsset.duration);
+    double delayInSeconds = video.duration;
+    
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         _currentPlayingIndex++;
