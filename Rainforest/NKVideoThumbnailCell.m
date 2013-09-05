@@ -48,7 +48,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+    self.backgroundColor = [UIColor whiteColor];
     self.imageView.frame = self.bounds;
     self.selectionView.frame = self.bounds;
     self.selectionView.hidden = !self.selected;

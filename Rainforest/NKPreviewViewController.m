@@ -32,7 +32,7 @@
 {
     [super viewDidLoad];
     
-    self.wantsFullScreenLayout = NO;
+    self.view.backgroundColor = [UIColor whiteColor];
     
     MPMoviePlayerController *player = [[MPMoviePlayerController alloc] init];
     player.scalingMode = MPMovieScalingModeAspectFit;

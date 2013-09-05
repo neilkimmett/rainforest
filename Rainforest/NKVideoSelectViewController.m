@@ -40,7 +40,7 @@
 //    }
     
     UIView *containerView = [[UIView alloc] initWithFrame:frame];
-    containerView.backgroundColor = [UIColor blackColor];
+    containerView.backgroundColor = [UIColor whiteColor];
     containerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.view = containerView;
     
@@ -56,6 +56,7 @@
     [collectionView registerClass:[NKVideoThumbnailCell class] forCellWithReuseIdentifier:@"CellIdentifier"];
     collectionView.dataSource = self;
     collectionView.allowsMultipleSelection = YES;
+    collectionView.backgroundColor = [UIColor whiteColor];
     
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
@@ -89,12 +90,12 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
-                                                                       style:UIBarButtonItemStyleBordered
-                                                                      target:self
-                                                                      action:@selector(didTapNextButton:)];
-//                                                                      action:@selector(generateVideo:)];
-    self.navigationItem.rightBarButtonItem = generateButton;
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
+                                                                  style:UIBarButtonItemStyleBordered
+                                                                 target:self
+                                                                 action:@selector(didTapNextButton:)];
+    //                                                                      action:@selector(generateVideo:)];
+    self.navigationItem.rightBarButtonItem = barButton;
     
 }
 - (void)viewDidAppear:(BOOL)animated
@@ -163,7 +164,7 @@
     }
     [self removePreviewView];
     
-    UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.73];
+    UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:0.3];
     UIImage *blurImage = [[NKViewSnapshotter snapshotImageFromView:self.view] applyBlurWithRadius:5
                                                                                         tintColor:tintColor
                                                                             saturationDeltaFactor:1.5
