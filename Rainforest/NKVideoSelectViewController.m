@@ -13,11 +13,13 @@
 #import "NKAssetStitcher.h"
 #import "NKViewSnapshotter.h"
 #import "UIImage+ImageEffects.h"
+#import "NKPreviewViewController.h"
 
 @interface NKVideoSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *assetURLs;
 @property (nonatomic, strong) NSMutableDictionary *selectedAssetURLsByRow;
+@property (nonatomic, strong) NSMutableArray *selectedAssetURLsArray;
 @property (nonatomic, strong) MPMoviePlayerController *playerController;
 @property (nonatomic, strong) UIView *previewBackgroundOverlay;
 @end
@@ -57,23 +59,14 @@
     
     self.collectionView = collectionView;
     [self.view addSubview:collectionView];
+    
+    [self loadAssets];
 }
 
-
-- (void)viewDidLoad
+- (void)loadAssets
 {
-    [super viewDidLoad];
-    
-    UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Generate"
-                                                                       style:UIBarButtonItemStyleBordered
-                                                                      target:self
-                                                                      action:@selector(generateVideo:)];
-    self.navigationItem.rightBarButtonItem = generateButton;
-    
-    
     self.assetURLs = [NSMutableArray array];
-    self.selectedAssetURLsByRow = [NSMutableDictionary dictionary];
-    
+
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         [group enumerateAssetsUsingBlock:^(ALAsset *asset, NSUInteger index, BOOL *stop2) {
@@ -90,6 +83,29 @@
     } failureBlock:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIBarButtonItem *generateButton = [[UIBarButtonItem alloc] initWithTitle:@"Next"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:self
+                                                                      action:@selector(didTapNextButton:)];
+//                                                                      action:@selector(generateVideo:)];
+    self.navigationItem.rightBarButtonItem = generateButton;
+    
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    for (NSNumber *index in [self.selectedAssetURLsByRow allKeys]) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[index intValue] inSection:0];
+        [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    }
+    
+    self.selectedAssetURLsByRow = [NSMutableDictionary dictionary];
+    self.selectedAssetURLsArray = [NSMutableArray array];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -117,12 +133,16 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
-    self.selectedAssetURLsByRow[@(indexPath.row)] = self.assetURLs[indexPath.row];
+    NSURL *url = self.assetURLs[indexPath.row];
+    [self.selectedAssetURLsArray addObject:url];
+    self.selectedAssetURLsByRow[@(indexPath.row)] = url;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self removePreviewView];
+    NSURL *url = self.selectedAssetURLsByRow[@(indexPath.row)];
+    [self.selectedAssetURLsArray removeObject:url];
     [self.selectedAssetURLsByRow removeObjectForKey:@(indexPath.row)];
 }
 
@@ -212,6 +232,13 @@
     
     [self.previewBackgroundOverlay removeFromSuperview];
     self.previewBackgroundOverlay = nil;
+}
+
+#pragma mark - Buttons
+- (void)didTapNextButton:(id)sender
+{
+    NKPreviewViewController *viewController = [[NKPreviewViewController alloc] initWithAssetURLs:[self.selectedAssetURLsArray copy]];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - Video generation
