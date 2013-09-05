@@ -124,7 +124,7 @@
     
     if (cell.gestureRecognizers.count == 0) {
         UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellDidRecognizeLongPress:)];
-        gesture.minimumPressDuration = 0.3;
+        gesture.minimumPressDuration = 0.2;
         [cell addGestureRecognizer:gesture];
     }
     return cell;
