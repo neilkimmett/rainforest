@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol NKVideoThumbnailCellDelegate;
+
 @interface NKVideoThumbnailCell : UICollectionViewCell
 
-@property (nonatomic) NSURL *contentURL;
-@property (nonatomic, weak) UIViewController *presentingViewController;
+@property (nonatomic, strong) NSURL *contentURL;
+@property (nonatomic, weak) id <NKVideoThumbnailCellDelegate> delegate;
 
 @end
 
-@protocol NKVideoThumbnailCell <NSObject>
-
-//- (void)
-
+@protocol NKVideoThumbnailCellDelegate <NSObject>
+// TODO: probably get rid of this
 @end

@@ -14,7 +14,6 @@
 @interface NKVideoThumbnailCell ()
 @property (nonatomic) UIImageView *imageView;
 @property (nonatomic) UIView *selectionView;
-@property (nonatomic) BOOL hasExpanded;
 @property (nonatomic) MPMoviePlayerController *playerController;
 @end
 
@@ -35,13 +34,23 @@
     return self;
 }
 
++ (NSCache *)sharedImageCache
+{
+    static NSCache *_shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _shared = [[NSCache alloc] init];
+    });
+    
+    return _shared;
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
     self.imageView.frame = self.bounds;
     self.selectionView.frame = self.bounds;
-    self.layer.zPosition = self.highlighted ? 100 : 1;
     self.selectionView.hidden = !self.selected;
 }
 
@@ -51,42 +60,20 @@
     [self setNeedsLayout];
 }
 
-- (void)setHighlighted:(BOOL)highlighted
-{
-    [super setHighlighted:highlighted];
-
-    if (!highlighted && self.hasExpanded) {
-        [self.playerController stop];
-        [self.playerController.view removeFromSuperview];
-        self.playerController = nil;
-        
-        self.frame = CGRectInset(self.frame, kThumbnailExpansionAmount, kThumbnailExpansionAmount);
-        self.hasExpanded = NO;
-    }
-    else if (highlighted && !self.hasExpanded) {
-        self.frame = CGRectInset(self.frame, -kThumbnailExpansionAmount, -kThumbnailExpansionAmount);
-        self.hasExpanded = YES;
-
-        MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:self.contentURL];
-        player.scalingMode = MPMovieScalingModeAspectFit;
-        player.controlStyle = MPMovieControlStyleNone;
-        player.allowsAirPlay = NO;
-        player.repeatMode = MPMovieRepeatModeOne;
-        [player prepareToPlay];
-        [player.view setFrame:self.bounds];
-        [self.contentView addSubview:player.view];
-        [player play];
-        self.playerController = player;
-    }
-}
-
 
 - (void)setContentURL:(NSURL *)contentURL
 {
     _contentURL = contentURL;
-    self.imageView.image = nil;
-    [self setNeedsLayout];
-    [self generateThumbnailForAssetWithContentURL:contentURL];
+    
+    UIImage *cachedImage = [[[self class] sharedImageCache] objectForKey:contentURL];
+    if (cachedImage) {
+        self.imageView.image = cachedImage;
+    }
+    else {
+        self.imageView.image = nil;
+        [self setNeedsDisplay];
+        [self generateThumbnailForAssetWithContentURL:contentURL];
+    }
 }
 
 - (void)generateThumbnailForAssetWithContentURL:(NSURL *)contentURL
@@ -96,8 +83,7 @@
         
         AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:contentURL options:nil];
         AVAssetImageGenerator *generator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-        generator.appliesPreferredTrackTransform=TRUE;
-        CMTime thumbTime = CMTimeMakeWithSeconds(0,30);
+        generator.appliesPreferredTrackTransform = YES;
         
         AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
             if (result != AVAssetImageGeneratorSucceeded) {
@@ -107,13 +93,15 @@
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.imageView.image = thumbImage;
-                [self setNeedsLayout];
+                [self setNeedsDisplay];
+                
+                [[[self class] sharedImageCache] setObject:thumbImage forKey:contentURL];
             });
         };
         
         CGSize maxSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
         generator.maximumSize = maxSize;
-        [generator generateCGImagesAsynchronouslyForTimes:@[[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+        [generator generateCGImagesAsynchronouslyForTimes:@[[NSValue valueWithCMTime:kCMTimeZero]] completionHandler:handler];
     });
 }
 

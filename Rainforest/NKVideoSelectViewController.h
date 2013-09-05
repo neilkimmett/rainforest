@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NKVideoSelectViewController : UICollectionViewController
+@interface NKVideoSelectViewController : UIViewController
 
 + (instancetype)selectionViewController;
 
