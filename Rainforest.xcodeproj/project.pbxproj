@@ -12,6 +12,8 @@
 		284595001773910C005382AE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 284594FF1773910C005382AE /* CFNetwork.framework */; };
 		2845950217739115005382AE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2845950117739115005382AE /* QuartzCore.framework */; };
 		28459504177391B9005382AE /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28459503177391B9005382AE /* Reveal.framework */; };
+		28900E6317D903C900DC69F5 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E6217D903C900DC69F5 /* UIImage+ImageEffects.m */; };
+		28900E6617D9040B00DC69F5 /* NKViewSnapshotter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E6517D9040B00DC69F5 /* NKViewSnapshotter.m */; };
 		2891435C176DCA8A00A7DC85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435B176DCA8A00A7DC85 /* Foundation.framework */; };
 		2891435E176DCA8A00A7DC85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435D176DCA8A00A7DC85 /* CoreGraphics.framework */; };
 		28914360176DCA8A00A7DC85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435F176DCA8A00A7DC85 /* UIKit.framework */; };
@@ -46,6 +48,10 @@
 		284594FF1773910C005382AE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2845950117739115005382AE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		28459503177391B9005382AE /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		28900E6117D903C900DC69F5 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		28900E6217D903C900DC69F5 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		28900E6417D9040B00DC69F5 /* NKViewSnapshotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKViewSnapshotter.h; sourceTree = "<group>"; };
+		28900E6517D9040B00DC69F5 /* NKViewSnapshotter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKViewSnapshotter.m; sourceTree = "<group>"; };
 		28914358176DCA8A00A7DC85 /* Rainforest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rainforest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2891435B176DCA8A00A7DC85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2891435D176DCA8A00A7DC85 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,6 +101,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28900E6717D9043700DC69F5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				28914391176DD14200A7DC85 /* NKAssetStitcher.h */,
+				28914392176DD14200A7DC85 /* NKAssetStitcher.m */,
+				28900E6417D9040B00DC69F5 /* NKViewSnapshotter.h */,
+				28900E6517D9040B00DC69F5 /* NKViewSnapshotter.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		2891434F176DCA8A00A7DC85 = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +152,7 @@
 				28914390176DD13200A7DC85 /* 3rd party libraries */,
 				2891436A176DCA8A00A7DC85 /* NKAppDelegate.h */,
 				2891436B176DCA8A00A7DC85 /* NKAppDelegate.m */,
+				28900E6717D9043700DC69F5 /* Utilities */,
 				284594F91773829D005382AE /* NKVideoSelectViewController.h */,
 				284594FA1773829D005382AE /* NKVideoSelectViewController.m */,
 				284594FC177386A6005382AE /* NKVideoThumbnailCell.h */,
@@ -177,8 +195,8 @@
 		28914390176DD13200A7DC85 /* 3rd party libraries */ = {
 			isa = PBXGroup;
 			children = (
-				28914391176DD14200A7DC85 /* NKAssetStitcher.h */,
-				28914392176DD14200A7DC85 /* NKAssetStitcher.m */,
+				28900E6117D903C900DC69F5 /* UIImage+ImageEffects.h */,
+				28900E6217D903C900DC69F5 /* UIImage+ImageEffects.m */,
 			);
 			name = "3rd party libraries";
 			sourceTree = "<group>";
@@ -282,6 +300,8 @@
 			files = (
 				284594FB177382AE005382AE /* NKVideoSelectViewController.m in Sources */,
 				28914393176DD1AC00A7DC85 /* NKAssetStitcher.m in Sources */,
+				28900E6317D903C900DC69F5 /* UIImage+ImageEffects.m in Sources */,
+				28900E6617D9040B00DC69F5 /* NKViewSnapshotter.m in Sources */,
 				28914368176DCA8A00A7DC85 /* main.m in Sources */,
 				2891436C176DCA8A00A7DC85 /* NKAppDelegate.m in Sources */,
 				284594FE177386A6005382AE /* NKVideoThumbnailCell.m in Sources */,

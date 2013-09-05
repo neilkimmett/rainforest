@@ -11,12 +11,15 @@
 #import "NKVideoSelectViewController.h"
 #import "NKVideoThumbnailCell.h"
 #import "NKAssetStitcher.h"
+#import "NKViewSnapshotter.h"
+#import "UIImage+ImageEffects.h"
 
 @interface NKVideoSelectViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *assetURLs;
 @property (nonatomic, strong) NSMutableDictionary *selectedAssetURLsByRow;
 @property (nonatomic, strong) MPMoviePlayerController *playerController;
+@property (nonatomic, strong) UIView *previewBackgroundOverlay;
 @end
 
 @implementation NKVideoSelectViewController
@@ -29,7 +32,7 @@
 - (void)loadView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
-    CGFloat heightAdjustment = self.parentViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
+//    CGFloat heightAdjustment = self.parentViewController.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height;
 //    if (![UIDevice isiOS7]) {
 //        frame.size.height -= heightAdjustment;
 //    }
@@ -140,24 +143,39 @@
     }
     [self removePreviewView];
     
+    UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.73];
+    UIImage *blurImage = [[NKViewSnapshotter snapshotImageFromView:self.view] applyBlurWithRadius:5
+                                                                                        tintColor:tintColor
+                                                                            saturationDeltaFactor:1.5
+                                                                                        maskImage:nil];
+    UIImageView *previewBackgroundView = [[UIImageView alloc] initWithImage:blurImage];
+    previewBackgroundView.frame = self.view.bounds;
+    previewBackgroundView.userInteractionEnabled = YES;
+    [self.view addSubview:previewBackgroundView];
+    self.previewBackgroundOverlay = previewBackgroundView;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removePreviewView)];
+    [previewBackgroundView addGestureRecognizer:tap];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(removePreviewView)];
+    [previewBackgroundView addGestureRecognizer:pan];
+    
     MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:cell.contentURL];
     player.scalingMode = MPMovieScalingModeAspectFit;
     player.controlStyle = MPMovieControlStyleNone;
     player.allowsAirPlay = NO;
     player.repeatMode = MPMovieRepeatModeOne;
     [player prepareToPlay];
-    
-    CGRect cellRect = [self.collectionView convertRect:cell.frame toView:self.view];
-    
-    player.view.frame = [self previewRectForPressedCellWithRect:cellRect];
-    
+    player.view.frame = [self previewRectForPressedCell:cell];
     [self.view addSubview:player.view];
     [player play];
     self.playerController = player;
 }
 
-- (CGRect)previewRectForPressedCellWithRect:(CGRect)cellRect
+- (CGRect)previewRectForPressedCell:(NKVideoThumbnailCell *)cell
 {
+    CGRect cellRect = [self.collectionView convertRect:cell.frame toView:self.view];
+
     CGFloat previewSize = 200;
     CGRect previewFrame = CGRectMake(0, 0, previewSize, previewSize);
     if (cellRect.origin.x < CGRectGetMidX(self.view.frame)) {
@@ -191,6 +209,9 @@
     [self.playerController stop];
     [self.playerController.view removeFromSuperview];
     self.playerController = nil;
+    
+    [self.previewBackgroundOverlay removeFromSuperview];
+    self.previewBackgroundOverlay = nil;
 }
 
 #pragma mark - Video generation
