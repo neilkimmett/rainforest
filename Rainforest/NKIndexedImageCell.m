@@ -8,11 +8,14 @@
 
 #import <MediaPlayer/MediaPlayer.h>
 #import "NKIndexedImageCell.h"
+#import "NSString+FontAwesome.h"
+#import "UIFont+FontAwesome.h"
 
 #define kThumbnailExpansionAmount 40
 
 @interface NKIndexedImageCell ()
 @property (nonatomic, strong) UIView *selectionView;
+@property (nonatomic, strong) UILabel *checkmarkLabel;
 @end
 
 @implementation NKIndexedImageCell
@@ -28,6 +31,14 @@
         _selectionView.backgroundColor = [UIColor whiteColor];
         _selectionView.alpha = 0.5;
         [self addSubview:_selectionView];
+        
+        UILabel *checkmarkLabel = [[UILabel alloc] init];
+        checkmarkLabel.font = [UIFont iconicFontOfSize:20];
+        checkmarkLabel.text = [NSString fontAwesomeIconStringForEnum:FAIconCheck];
+        checkmarkLabel.textColor = [UIColor darkGrayColor];
+        checkmarkLabel.textAlignment = NSTextAlignmentCenter;
+        [_selectionView addSubview:checkmarkLabel];
+        _checkmarkLabel = checkmarkLabel;
     }
     return self;
 }
@@ -36,8 +47,15 @@
 {
     [super layoutSubviews];
     self.backgroundColor = [UIColor whiteColor];
-    self.imageView.frame = self.bounds;
-    self.selectionView.frame = self.bounds;
+    
+    CGRect frame = self.bounds;
+    _imageView.frame = frame;
+    _selectionView.frame = frame;
+    CGFloat checkmarkSize = 30;
+    _checkmarkLabel.frame = CGRectMake(CGRectGetMaxX(frame) - checkmarkSize,
+                                       CGRectGetMaxY(frame) - checkmarkSize,
+                                       checkmarkSize, checkmarkSize);
+
     self.selectionView.hidden = !self.selected;
 }
 

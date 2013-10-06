@@ -16,6 +16,9 @@
 		28900E6617D9040B00DC69F5 /* NKViewSnapshotter.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E6517D9040B00DC69F5 /* NKViewSnapshotter.m */; };
 		28900E6A17D9077200DC69F5 /* NKPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E6917D9077200DC69F5 /* NKPreviewViewController.m */; };
 		28900E6D17D917E800DC69F5 /* Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E6C17D917E800DC69F5 /* Video.m */; };
+		28900E7217D9280100DC69F5 /* NSString+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E7117D9280100DC69F5 /* NSString+FontAwesome.m */; };
+		28900E7617D9282800DC69F5 /* UIFont+FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 28900E7517D9282800DC69F5 /* UIFont+FontAwesome.m */; };
+		28900E7717D92A1900DC69F5 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28900E7317D9281500DC69F5 /* FontAwesome.ttf */; };
 		2891435C176DCA8A00A7DC85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435B176DCA8A00A7DC85 /* Foundation.framework */; };
 		2891435E176DCA8A00A7DC85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435D176DCA8A00A7DC85 /* CoreGraphics.framework */; };
 		28914360176DCA8A00A7DC85 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891435F176DCA8A00A7DC85 /* UIKit.framework */; };
@@ -58,20 +61,25 @@
 		28900E6917D9077200DC69F5 /* NKPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKPreviewViewController.m; sourceTree = "<group>"; };
 		28900E6B17D917E800DC69F5 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
 		28900E6C17D917E800DC69F5 /* Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Video.m; sourceTree = "<group>"; };
-		28914358176DCA8A00A7DC85 /* Rainforest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rainforest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28900E7017D9280100DC69F5 /* NSString+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FontAwesome.h"; sourceTree = "<group>"; };
+		28900E7117D9280100DC69F5 /* NSString+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FontAwesome.m"; sourceTree = "<group>"; };
+		28900E7317D9281500DC69F5 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		28900E7417D9282800DC69F5 /* UIFont+FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FontAwesome.h"; sourceTree = "<group>"; };
+		28900E7517D9282800DC69F5 /* UIFont+FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FontAwesome.m"; sourceTree = "<group>"; };
+		28914358176DCA8A00A7DC85 /* Grapevine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grapevine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2891435B176DCA8A00A7DC85 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2891435D176DCA8A00A7DC85 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		2891435F176DCA8A00A7DC85 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		28914363176DCA8A00A7DC85 /* Rainforest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rainforest-Info.plist"; sourceTree = "<group>"; };
+		28914363176DCA8A00A7DC85 /* Grapevine-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Grapevine-Info.plist"; sourceTree = "<group>"; };
 		28914365176DCA8A00A7DC85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		28914367176DCA8A00A7DC85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		28914369176DCA8A00A7DC85 /* Rainforest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rainforest-Prefix.pch"; sourceTree = "<group>"; };
+		28914369176DCA8A00A7DC85 /* Grapevine-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Grapevine-Prefix.pch"; sourceTree = "<group>"; };
 		2891436A176DCA8A00A7DC85 /* NKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKAppDelegate.h; sourceTree = "<group>"; };
 		2891436B176DCA8A00A7DC85 /* NKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NKAppDelegate.m; sourceTree = "<group>"; };
 		28914373176DCA8A00A7DC85 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		28914379176DCA8A00A7DC85 /* RainforestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RainforestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		28914379176DCA8A00A7DC85 /* GrapevineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrapevineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2891437A176DCA8A00A7DC85 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		28914382176DCA8A00A7DC85 /* RainforestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RainforestTests-Info.plist"; sourceTree = "<group>"; };
+		28914382176DCA8A00A7DC85 /* GrapevineTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GrapevineTests-Info.plist"; sourceTree = "<group>"; };
 		28914384176DCA8A00A7DC85 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		28914386176DCA8A00A7DC85 /* RainforestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RainforestTests.m; sourceTree = "<group>"; };
 		28914391176DD14200A7DC85 /* NKAssetStitcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NKAssetStitcher.h; sourceTree = "<group>"; };
@@ -127,6 +135,18 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		28900E6F17D927F700DC69F5 /* FontAwesome */ = {
+			isa = PBXGroup;
+			children = (
+				28900E7017D9280100DC69F5 /* NSString+FontAwesome.h */,
+				28900E7117D9280100DC69F5 /* NSString+FontAwesome.m */,
+				28900E7317D9281500DC69F5 /* FontAwesome.ttf */,
+				28900E7417D9282800DC69F5 /* UIFont+FontAwesome.h */,
+				28900E7517D9282800DC69F5 /* UIFont+FontAwesome.m */,
+			);
+			name = FontAwesome;
+			sourceTree = "<group>";
+		};
 		2891434F176DCA8A00A7DC85 = {
 			isa = PBXGroup;
 			children = (
@@ -140,8 +160,8 @@
 		28914359176DCA8A00A7DC85 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				28914358176DCA8A00A7DC85 /* Rainforest.app */,
-				28914379176DCA8A00A7DC85 /* RainforestTests.xctest */,
+				28914358176DCA8A00A7DC85 /* Grapevine.app */,
+				28914379176DCA8A00A7DC85 /* GrapevineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,10 +204,10 @@
 		28914362176DCA8A00A7DC85 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				28914363176DCA8A00A7DC85 /* Rainforest-Info.plist */,
+				28914363176DCA8A00A7DC85 /* Grapevine-Info.plist */,
 				28914364176DCA8A00A7DC85 /* InfoPlist.strings */,
 				28914367176DCA8A00A7DC85 /* main.m */,
-				28914369176DCA8A00A7DC85 /* Rainforest-Prefix.pch */,
+				28914369176DCA8A00A7DC85 /* Grapevine-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -204,7 +224,7 @@
 		28914381176DCA8A00A7DC85 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				28914382176DCA8A00A7DC85 /* RainforestTests-Info.plist */,
+				28914382176DCA8A00A7DC85 /* GrapevineTests-Info.plist */,
 				28914383176DCA8A00A7DC85 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -213,6 +233,7 @@
 		28914390176DD13200A7DC85 /* 3rd party libraries */ = {
 			isa = PBXGroup;
 			children = (
+				28900E6F17D927F700DC69F5 /* FontAwesome */,
 				28900E6117D903C900DC69F5 /* UIImage+ImageEffects.h */,
 				28900E6217D903C900DC69F5 /* UIImage+ImageEffects.m */,
 			);
@@ -222,9 +243,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		28914357176DCA8A00A7DC85 /* Rainforest */ = {
+		28914357176DCA8A00A7DC85 /* Grapevine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2891438A176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "Rainforest" */;
+			buildConfigurationList = 2891438A176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "Grapevine" */;
 			buildPhases = (
 				28914354176DCA8A00A7DC85 /* Sources */,
 				28914355176DCA8A00A7DC85 /* Frameworks */,
@@ -234,14 +255,14 @@
 			);
 			dependencies = (
 			);
-			name = Rainforest;
+			name = Grapevine;
 			productName = Rainforest;
-			productReference = 28914358176DCA8A00A7DC85 /* Rainforest.app */;
+			productReference = 28914358176DCA8A00A7DC85 /* Grapevine.app */;
 			productType = "com.apple.product-type.application";
 		};
-		28914378176DCA8A00A7DC85 /* RainforestTests */ = {
+		28914378176DCA8A00A7DC85 /* GrapevineTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2891438D176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "RainforestTests" */;
+			buildConfigurationList = 2891438D176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "GrapevineTests" */;
 			buildPhases = (
 				28914375176DCA8A00A7DC85 /* Sources */,
 				28914376176DCA8A00A7DC85 /* Frameworks */,
@@ -252,9 +273,9 @@
 			dependencies = (
 				2891437F176DCA8A00A7DC85 /* PBXTargetDependency */,
 			);
-			name = RainforestTests;
+			name = GrapevineTests;
 			productName = RainforestTests;
-			productReference = 28914379176DCA8A00A7DC85 /* RainforestTests.xctest */;
+			productReference = 28914379176DCA8A00A7DC85 /* GrapevineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -272,7 +293,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 28914353176DCA8A00A7DC85 /* Build configuration list for PBXProject "Rainforest" */;
+			buildConfigurationList = 28914353176DCA8A00A7DC85 /* Build configuration list for PBXProject "Grapevine" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -285,8 +306,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				28914357176DCA8A00A7DC85 /* Rainforest */,
-				28914378176DCA8A00A7DC85 /* RainforestTests */,
+				28914357176DCA8A00A7DC85 /* Grapevine */,
+				28914378176DCA8A00A7DC85 /* GrapevineTests */,
 			);
 		};
 /* End PBXProject section */
@@ -296,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28900E7717D92A1900DC69F5 /* FontAwesome.ttf in Resources */,
 				28914374176DCA8A00A7DC85 /* Images.xcassets in Resources */,
 				28914366176DCA8A00A7DC85 /* InfoPlist.strings in Resources */,
 			);
@@ -316,9 +338,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28900E7217D9280100DC69F5 /* NSString+FontAwesome.m in Sources */,
 				284594FB177382AE005382AE /* NKVideoSelectViewController.m in Sources */,
 				28914393176DD1AC00A7DC85 /* NKAssetStitcher.m in Sources */,
 				28900E6317D903C900DC69F5 /* UIImage+ImageEffects.m in Sources */,
+				28900E7617D9282800DC69F5 /* UIFont+FontAwesome.m in Sources */,
 				28900E6D17D917E800DC69F5 /* Video.m in Sources */,
 				28900E6617D9040B00DC69F5 /* NKViewSnapshotter.m in Sources */,
 				28914368176DCA8A00A7DC85 /* main.m in Sources */,
@@ -341,7 +365,7 @@
 /* Begin PBXTargetDependency section */
 		2891437F176DCA8A00A7DC85 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 28914357176DCA8A00A7DC85 /* Rainforest */;
+			target = 28914357176DCA8A00A7DC85 /* Grapevine */;
 			targetProxy = 2891437E176DCA8A00A7DC85 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -446,9 +470,9 @@
 					"$(SRCROOT)/Rainforest",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Rainforest/Rainforest-Prefix.pch";
-				INFOPLIST_FILE = "Rainforest/Rainforest-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Rainforest/Grapevine-Prefix.pch";
+				INFOPLIST_FILE = "Rainforest/Grapevine-Info.plist";
+				PRODUCT_NAME = Grapevine;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -463,9 +487,9 @@
 					"$(SRCROOT)/Rainforest",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Rainforest/Rainforest-Prefix.pch";
-				INFOPLIST_FILE = "Rainforest/Rainforest-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Rainforest/Grapevine-Prefix.pch";
+				INFOPLIST_FILE = "Rainforest/Grapevine-Info.plist";
+				PRODUCT_NAME = Grapevine;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -485,8 +509,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "RainforestTests/RainforestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "RainforestTests/GrapevineTests-Info.plist";
+				PRODUCT_NAME = GrapevineTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -503,8 +527,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rainforest/Rainforest-Prefix.pch";
-				INFOPLIST_FILE = "RainforestTests/RainforestTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "RainforestTests/GrapevineTests-Info.plist";
+				PRODUCT_NAME = GrapevineTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -513,7 +537,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		28914353176DCA8A00A7DC85 /* Build configuration list for PBXProject "Rainforest" */ = {
+		28914353176DCA8A00A7DC85 /* Build configuration list for PBXProject "Grapevine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				28914388176DCA8A00A7DC85 /* Debug */,
@@ -522,7 +546,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2891438A176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "Rainforest" */ = {
+		2891438A176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "Grapevine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2891438B176DCA8A00A7DC85 /* Debug */,
@@ -531,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2891438D176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "RainforestTests" */ = {
+		2891438D176DCA8A00A7DC85 /* Build configuration list for PBXNativeTarget "GrapevineTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2891438E176DCA8A00A7DC85 /* Debug */,

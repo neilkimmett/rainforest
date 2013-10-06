@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28914357176DCA8A00A7DC85"
                BuildableName = "Rainforest.app"
-               BlueprintName = "Rainforest"
-               ReferencedContainer = "container:Rainforest.xcodeproj">
+               BlueprintName = "Grapevine"
+               ReferencedContainer = "container:Grapevine.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,8 +34,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28914378176DCA8A00A7DC85"
                BuildableName = "RainforestTests.xctest"
-               BlueprintName = "RainforestTests"
-               ReferencedContainer = "container:Rainforest.xcodeproj">
+               BlueprintName = "GrapevineTests"
+               ReferencedContainer = "container:Grapevine.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -44,8 +44,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28914357176DCA8A00A7DC85"
             BuildableName = "Rainforest.app"
-            BlueprintName = "Rainforest"
-            ReferencedContainer = "container:Rainforest.xcodeproj">
+            BlueprintName = "Grapevine"
+            ReferencedContainer = "container:Grapevine.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -63,8 +63,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28914357176DCA8A00A7DC85"
             BuildableName = "Rainforest.app"
-            BlueprintName = "Rainforest"
-            ReferencedContainer = "container:Rainforest.xcodeproj">
+            BlueprintName = "Grapevine"
+            ReferencedContainer = "container:Grapevine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28914357176DCA8A00A7DC85"
             BuildableName = "Rainforest.app"
-            BlueprintName = "Rainforest"
-            ReferencedContainer = "container:Rainforest.xcodeproj">
+            BlueprintName = "Grapevine"
+            ReferencedContainer = "container:Grapevine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
